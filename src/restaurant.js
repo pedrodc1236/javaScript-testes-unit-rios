@@ -57,18 +57,18 @@
 
 //------------------------------------------------------------------------------------------
 
-// PASSO 3: Crie uma função, separada da função `createMenu()`, que, dada uma string recebida por parâmetro, 
+// PASSO 3: Crie uma função, separada da função `createMenu()`, que, dada uma string recebida por parâmetro,
 // adiciona essa string ao array de `objetoRetornado.consumption`. Adicione essa função à chave `order`.
-// DICA: para criar isso, você pode: 
+// DICA: para criar isso, você pode:
 // - Definir a função `createMenu()`
-// - Definir o objeto que a `createMenu()` retorna, mas separadamente 
+// - Definir o objeto que a `createMenu()` retorna, mas separadamente
 // - E, depois, definir a função que será atribuída a `order`.
 // ```
 // const restaurant = {}
 //
 // const createMenu = (myMenu) => // Lógica que edita o objeto `restaurant`
 //
-// const orderFromMenu = (request) => // Lógica que adiciona à chave `consumption` de `restaurant` a string recebida no parâmetro `request`. 
+// const orderFromMenu = (request) => // Lógica que adiciona à chave `consumption` de `restaurant` a string recebida no parâmetro `request`.
 // // Essa função deve ser associada à chave `order` de `restaurant`
 // ```
 // Agora faça o TESTE 6 no arquivo `tests/restaurant.spec.js`.
@@ -89,6 +89,20 @@ const createMenu = (objMenu) => {
   newObj.fetchMenu = () => objMenu;
   newObj.consumption = [];
   newObj.order = orderFromMenu;
+  newObj.pay = () => {
+    let sum = 0;
+
+    for (let index in newObj.consumption) {
+      if (objMenu.food[newObj.consumption[index]]) {
+        sum += objMenu.food[newObj.consumption[index]];
+      } else if (objMenu.drink[newObj.consumption[index]]) {
+        sum += objMenu.drink[newObj.consumption[index]];
+      }
+    }
+
+    return sum + (sum * 0.1);
+  };
+
   return newObj;
 };
 
